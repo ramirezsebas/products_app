@@ -29,10 +29,12 @@ class FavoritesScreen extends ConsumerWidget {
                   final product = products[index];
 
                   return ListTile(
-                    leading: CircleAvatar(
-                      backgroundImage: CachedNetworkImageProvider(
-                        product.thumbnail,
-                      ),
+                    leading: CachedNetworkImage(
+                      imageUrl: product.thumbnail,
+                      placeholder: (context, url) =>
+                          const CircularProgressIndicator(),
+                      errorWidget: (context, url, error) =>
+                          const Icon(Icons.error),
                     ),
                     title: Text(product.title),
                     subtitle: Text(product.description),
