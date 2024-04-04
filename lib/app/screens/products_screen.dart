@@ -57,6 +57,7 @@ class ProductsScreen extends ConsumerWidget {
             products.when(
               data: (data) {
                 return SliverList.separated(
+                  itemCount: data.length,
                   separatorBuilder: (context, index) => const Divider(),
                   itemBuilder: (context, index) {
                     final product = data[index];
