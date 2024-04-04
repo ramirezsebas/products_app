@@ -19,14 +19,13 @@ class FavoriteIconButton extends StatelessWidget {
           onPressed: onPressed,
         ),
         Align(
-          alignment: Alignment.topRight,
+          alignment: Alignment.topLeft,
           child: CircleAvatar(
-            backgroundColor: Colors.red,
             radius: 10,
             child: Text(
               numberOfFavorites.toString(),
               style: const TextStyle(
-                color: Colors.white,
+                fontSize: 12,
               ),
             ),
           ),
