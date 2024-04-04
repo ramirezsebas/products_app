@@ -12,7 +12,7 @@ void main() {
 
   setUp(() {
     dio = DioMock();
-    productsRepository = ProductsRepository(dio);
+    productsRepository = ProductsRepository(client: dio);
   });
 
   group('products repository ...', () {

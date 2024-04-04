@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:product_manager/app/models/product_model.dart';
 
 class ProductsRepository {
-  ProductsRepository(this.client);
+  ProductsRepository({required this.client});
 
   final Dio client;
 
