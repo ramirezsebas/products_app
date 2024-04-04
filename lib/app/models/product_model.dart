@@ -17,11 +17,11 @@ class ProductModel extends Equatable {
 
   factory ProductModel.fromJson(Map<String, dynamic> json) {
     return ProductModel(
-      id: json['id'] as int? ?? 0,
+      id: json['id'] as num? ?? 0,
       title: json['title'] as String? ?? '',
       description: json['description'] as String? ?? '',
-      price: (json['price'] as num? ?? 0.0).toDouble(),
-      discountPercentage: json['discountPercentage'] as double? ?? 0.0,
+      price: json['price'] as num? ?? 0.0,
+      discountPercentage: json['discountPercentage'] as num? ?? 0.0,
       rating: json['rating'] as num? ?? 0.0,
       stock: json['stock'] as num? ?? 0,
       brand: json['brand'] as String? ?? '',
@@ -49,7 +49,7 @@ class ProductModel extends Equatable {
     );
   }
 
-  final int id;
+  final num id;
   final String title;
   final String description;
   final num price;
