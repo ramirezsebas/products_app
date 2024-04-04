@@ -1,5 +1,6 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:product_manager/app/models/product_model.dart';
 
 class ProductViewSection extends StatelessWidget {
@@ -20,13 +21,25 @@ class ProductViewSection extends StatelessWidget {
           child: Swiper(
             itemCount: productModel.images.length,
             itemBuilder: (context, index) {
-              return Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: Image.network(
-                      productModel.images[index],
+              final image = productModel.images[index];
+              return GestureDetector(
+                onTap: () {
+                  GoRouter.of(context).push(
+                    '/products/${productModel.id}/image/',
+                    extra: image,
+                  );
+                },
+                child: Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Hero(
+                        tag: image,
+                        child: Image.network(
+                          image,
+                        ),
+                      ),
                     ),
                   ),
                 ),

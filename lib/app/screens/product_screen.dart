@@ -43,7 +43,9 @@ class ProductScreen extends ConsumerWidget {
       body: CustomScrollView(
         slivers: [
           SliverToBoxAdapter(
-            child: ProductViewSection(productModel: productModel),
+            child: ProductViewSection(
+              productModel: productModel,
+            ),
           ),
         ],
       ),
