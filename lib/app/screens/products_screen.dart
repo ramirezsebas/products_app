@@ -84,7 +84,9 @@ class ProductsScreen extends ConsumerWidget {
                         trailing: IconButton(
                           icon: Icon(
                             !ref
-                                    .watch(setFavoriteProductsProvider.notifier)
+                                    .watch(
+                                      setFavoriteProductsProvider.notifier,
+                                    )
                                     .isFavorite(product)
                                 ? Icons.favorite_border_rounded
                                 : Icons.favorite_rounded,
