@@ -15,12 +15,29 @@ Dio clientRepository(ClientRepositoryRef ref) {
 }
 
 @riverpod
+ProductsRepository productsRepository(ProductsRepositoryRef ref) {
+  final client = ref.watch(clientRepositoryProvider);
+
+  return ProductsRepository(client);
+}
+
+@riverpod
 Future<List<ProductModel>> fetchProducts(
   FetchProductsRef ref,
 ) async {
-  final client = ref.watch(clientRepositoryProvider);
-
-  final repository = ProductsRepository(client);
+  final repository = ref.watch(productsRepositoryProvider);
 
   return repository.getProducts();
+}
+
+@riverpod
+class SelectProduct extends _$SelectProduct {
+  @override
+  ProductModel build() {
+    return ProductModel.fromEmpty();
+  }
+
+  void selectProduct(ProductModel product) {
+    state = product;
+  }
 }
