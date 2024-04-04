@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -29,7 +30,9 @@ class FavoritesScreen extends ConsumerWidget {
 
                   return ListTile(
                     leading: CircleAvatar(
-                      backgroundImage: NetworkImage(product.thumbnail),
+                      backgroundImage: CachedNetworkImageProvider(
+                        product.thumbnail,
+                      ),
                     ),
                     title: Text(product.title),
                     subtitle: Text(product.description),

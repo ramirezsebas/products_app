@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -36,8 +37,15 @@ class ProductViewSection extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10),
                       child: Hero(
                         tag: image,
-                        child: Image.network(
-                          image,
+                        child: CachedNetworkImage(
+                          imageUrl: image,
+                          progressIndicatorBuilder:
+                              (context, url, downloadProgress) =>
+                                  CircularProgressIndicator(
+                            value: downloadProgress.progress,
+                          ),
+                          errorWidget: (context, url, error) =>
+                              const Icon(Icons.error),
                         ),
                       ),
                     ),
