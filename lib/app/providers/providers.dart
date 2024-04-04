@@ -73,6 +73,10 @@ class SetFavoriteProducts extends _$SetFavoriteProducts {
     return [];
   }
 
+  bool isFavorite(ProductModel product) {
+    return state.contains(product);
+  }
+
   void addToFavorites(ProductModel product) {
     if (state.contains(product)) {
       state = state.where((element) => element != product).toList();
