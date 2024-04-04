@@ -50,11 +50,6 @@ class ProductViewSection extends StatelessWidget {
             autoplay: true,
           ),
         ),
-        ListTile(
-          title: Text(productModel.title),
-          subtitle: Text(productModel.description),
-          trailing: Text(productModel.price.toString()),
-        ),
       ],
     );
   }
