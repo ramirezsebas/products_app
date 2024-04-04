@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:product_manager/app/providers/providers.dart';
+import 'package:product_manager/app/widgets/favorite_icon_button.dart';
 
 class ProductsScreen extends ConsumerWidget {
   const ProductsScreen({super.key});
@@ -26,29 +27,14 @@ class ProductsScreen extends ConsumerWidget {
                   floating: true,
                   snap: true,
                   actions: [
-                    Stack(
-                      children: [
-                        IconButton(
-                          icon: const Icon(Icons.favorite_border_rounded),
-                          onPressed: () {},
-                        ),
-                        Align(
-                          alignment: Alignment.topRight,
-                          child: CircleAvatar(
-                            backgroundColor: Colors.red,
-                            radius: 10,
-                            child: Text(
-                              ref
-                                  .watch(setFavoriteProductsProvider)
-                                  .length
-                                  .toString(),
-                              style: const TextStyle(
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
+                    FavoriteIconButton(
+                      numberOfFavorites:
+                          ref.watch(setFavoriteProductsProvider).length,
+                      onPressed: () {
+                        GoRouter.of(context).go(
+                          '/products/favorites',
+                        );
+                      },
                     ),
                   ],
                 );
