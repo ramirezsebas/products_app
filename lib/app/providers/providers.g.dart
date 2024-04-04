@@ -100,5 +100,22 @@ final selectProductProvider =
 );
 
 typedef _$SelectProduct = AutoDisposeNotifier<ProductModel>;
+String _$setFavoriteProductsHash() =>
+    r'91293de3005d521f3afa0903a3769f50178105c9';
+
+/// See also [SetFavoriteProducts].
+@ProviderFor(SetFavoriteProducts)
+final setFavoriteProductsProvider =
+    NotifierProvider<SetFavoriteProducts, List<ProductModel>>.internal(
+  SetFavoriteProducts.new,
+  name: r'setFavoriteProductsProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$setFavoriteProductsHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$SetFavoriteProducts = Notifier<List<ProductModel>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

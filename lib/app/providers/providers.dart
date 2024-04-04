@@ -65,3 +65,15 @@ class SelectProduct extends _$SelectProduct {
     state = product;
   }
 }
+
+@Riverpod(keepAlive: true)
+class SetFavoriteProducts extends _$SetFavoriteProducts {
+  @override
+  List<ProductModel> build() {
+    return [];
+  }
+
+  void addToFavorites(ProductModel product) {
+    state = [...state, product];
+  }
+}
