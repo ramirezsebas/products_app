@@ -36,11 +36,13 @@ UsersRepository usersRepository(UsersRepositoryRef ref) {
 
 @riverpod
 Future<List<ProductModel>> fetchProducts(
-  FetchProductsRef ref,
-) async {
+  FetchProductsRef ref, {
+  num limit = 30,
+  num skip = 0,
+}) async {
   final repository = ref.watch(productsRepositoryProvider);
 
-  return repository.getProducts(limit: 100, skip: 0);
+  return repository.getProducts(limit: limit, skip: skip);
 }
 
 @riverpod

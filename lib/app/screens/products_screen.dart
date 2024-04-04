@@ -10,7 +10,7 @@ class ProductsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final products = ref.watch(fetchProductsProvider);
+    final products = ref.watch(fetchProductsProvider());
     final user = ref.watch(fetchRandomUserProvider);
 
     return SafeArea(

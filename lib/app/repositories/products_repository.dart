@@ -7,8 +7,8 @@ class ProductsRepository {
   final Dio client;
 
   Future<List<ProductModel>> getProducts({
-    required num limit,
-    required num skip,
+    num limit = 30,
+    num skip = 0,
   }) async {
     try {
       final response =

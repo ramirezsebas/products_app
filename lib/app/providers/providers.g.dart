@@ -53,22 +53,174 @@ final usersRepositoryProvider = AutoDisposeProvider<UsersRepository>.internal(
 );
 
 typedef UsersRepositoryRef = AutoDisposeProviderRef<UsersRepository>;
-String _$fetchProductsHash() => r'a7288da45e9de72a197c27186893a7d7bb739966';
+String _$fetchProductsHash() => r'5b55db9093640870dabf8d36f8cb7ecc21906cae';
+
+/// Copied from Dart SDK
+class _SystemHash {
+  _SystemHash._();
+
+  static int combine(int hash, int value) {
+    // ignore: parameter_assignments
+    hash = 0x1fffffff & (hash + value);
+    // ignore: parameter_assignments
+    hash = 0x1fffffff & (hash + ((0x0007ffff & hash) << 10));
+    return hash ^ (hash >> 6);
+  }
+
+  static int finish(int hash) {
+    // ignore: parameter_assignments
+    hash = 0x1fffffff & (hash + ((0x03ffffff & hash) << 3));
+    // ignore: parameter_assignments
+    hash = hash ^ (hash >> 11);
+    return 0x1fffffff & (hash + ((0x00003fff & hash) << 15));
+  }
+}
 
 /// See also [fetchProducts].
 @ProviderFor(fetchProducts)
-final fetchProductsProvider =
-    AutoDisposeFutureProvider<List<ProductModel>>.internal(
-  fetchProducts,
-  name: r'fetchProductsProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$fetchProductsHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+const fetchProductsProvider = FetchProductsFamily();
 
-typedef FetchProductsRef = AutoDisposeFutureProviderRef<List<ProductModel>>;
+/// See also [fetchProducts].
+class FetchProductsFamily extends Family<AsyncValue<List<ProductModel>>> {
+  /// See also [fetchProducts].
+  const FetchProductsFamily();
+
+  /// See also [fetchProducts].
+  FetchProductsProvider call({
+    num limit = 30,
+    num skip = 0,
+  }) {
+    return FetchProductsProvider(
+      limit: limit,
+      skip: skip,
+    );
+  }
+
+  @override
+  FetchProductsProvider getProviderOverride(
+    covariant FetchProductsProvider provider,
+  ) {
+    return call(
+      limit: provider.limit,
+      skip: provider.skip,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'fetchProductsProvider';
+}
+
+/// See also [fetchProducts].
+class FetchProductsProvider
+    extends AutoDisposeFutureProvider<List<ProductModel>> {
+  /// See also [fetchProducts].
+  FetchProductsProvider({
+    num limit = 30,
+    num skip = 0,
+  }) : this._internal(
+          (ref) => fetchProducts(
+            ref as FetchProductsRef,
+            limit: limit,
+            skip: skip,
+          ),
+          from: fetchProductsProvider,
+          name: r'fetchProductsProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$fetchProductsHash,
+          dependencies: FetchProductsFamily._dependencies,
+          allTransitiveDependencies:
+              FetchProductsFamily._allTransitiveDependencies,
+          limit: limit,
+          skip: skip,
+        );
+
+  FetchProductsProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.limit,
+    required this.skip,
+  }) : super.internal();
+
+  final num limit;
+  final num skip;
+
+  @override
+  Override overrideWith(
+    FutureOr<List<ProductModel>> Function(FetchProductsRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: FetchProductsProvider._internal(
+        (ref) => create(ref as FetchProductsRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        limit: limit,
+        skip: skip,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<List<ProductModel>> createElement() {
+    return _FetchProductsProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is FetchProductsProvider &&
+        other.limit == limit &&
+        other.skip == skip;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, limit.hashCode);
+    hash = _SystemHash.combine(hash, skip.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin FetchProductsRef on AutoDisposeFutureProviderRef<List<ProductModel>> {
+  /// The parameter `limit` of this provider.
+  num get limit;
+
+  /// The parameter `skip` of this provider.
+  num get skip;
+}
+
+class _FetchProductsProviderElement
+    extends AutoDisposeFutureProviderElement<List<ProductModel>>
+    with FetchProductsRef {
+  _FetchProductsProviderElement(super.provider);
+
+  @override
+  num get limit => (origin as FetchProductsProvider).limit;
+  @override
+  num get skip => (origin as FetchProductsProvider).skip;
+}
+
 String _$fetchRandomUserHash() => r'941a78fe871bb34dbb543c66395df86653bb333b';
 
 /// See also [fetchRandomUser].
@@ -101,7 +253,7 @@ final selectProductProvider =
 
 typedef _$SelectProduct = AutoDisposeNotifier<ProductModel>;
 String _$setFavoriteProductsHash() =>
-    r'91293de3005d521f3afa0903a3769f50178105c9';
+    r'df960a6a6a2f256ca6526c40bf9f2aa881038378';
 
 /// See also [SetFavoriteProducts].
 @ProviderFor(SetFavoriteProducts)
