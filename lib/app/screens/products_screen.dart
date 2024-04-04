@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:go_router/go_router.dart';
 import 'package:product_manager/app/providers/providers.dart';
 import 'package:product_manager/app/widgets/favorite_icon_button.dart';
@@ -60,23 +61,51 @@ class ProductsScreen extends ConsumerWidget {
                   itemBuilder: (context, index) {
                     final product = data[index];
 
-                    return ListTile(
-                      leading: CircleAvatar(
-                        backgroundImage: NetworkImage(product.thumbnail),
+                    return Slidable(
+                      key: ValueKey(product.id),
+                      endActionPane: ActionPane(
+                        motion: const ScrollMotion(),
+                        children: [
+                          SlidableAction(
+                            onPressed: (context) {},
+                            backgroundColor: const Color(0xFF21B7CA),
+                            foregroundColor: Colors.white,
+                            icon: Icons.favorite_rounded,
+                            label: 'Add to Favorite',
+                          ),
+                        ],
                       ),
-                      title: Text(product.title),
-                      subtitle: Text(product.description),
-                      trailing: Text(product.price.toString()),
-                      onTap: () {
-                        ref
-                            .read(selectProductProvider.notifier)
-                            .selectProduct(product);
+                      child: ListTile(
+                        leading: CircleAvatar(
+                          backgroundImage: NetworkImage(product.thumbnail),
+                        ),
+                        title: Text(product.title),
+                        subtitle: Text(product.description),
+                        trailing: IconButton(
+                          icon: Icon(
+                            !ref
+                                    .watch(setFavoriteProductsProvider.notifier)
+                                    .isFavorite(product)
+                                ? Icons.favorite_border_rounded
+                                : Icons.favorite_rounded,
+                          ),
+                          onPressed: () {
+                            ref
+                                .read(setFavoriteProductsProvider.notifier)
+                                .addToFavorites(product);
+                          },
+                        ),
+                        onTap: () {
+                          ref
+                              .read(selectProductProvider.notifier)
+                              .selectProduct(product);
 
-                        GoRouter.of(context).push(
-                          '/products/${product.id}',
-                          extra: product,
-                        );
-                      },
+                          GoRouter.of(context).push(
+                            '/products/${product.id}',
+                            extra: product,
+                          );
+                        },
+                      ),
                     );
                   },
                 );
