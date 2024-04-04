@@ -74,5 +74,26 @@ void main() {
         expect(product.images, List<String>.empty());
       },
     );
+
+    test('fromJson handle default cases', () {
+      // Arrange
+      final json = <String, dynamic>{};
+
+      // Act
+      final product = ProductModel.fromJson(json);
+
+      // Assert
+      expect(product.id, 0);
+      expect(product.title, '');
+      expect(product.description, '');
+      expect(product.price, 0.0);
+      expect(product.discountPercentage, 0.0);
+      expect(product.rating, 0.0);
+      expect(product.stock, 0);
+      expect(product.brand, '');
+      expect(product.category, '');
+      expect(product.thumbnail, '');
+      expect(product.images, List<String>.empty());
+    });
   });
 }
