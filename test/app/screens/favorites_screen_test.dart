@@ -1,16 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mocktail/mocktail.dart';
-
-import 'package:product_manager/app/repositories/products_repository.dart';
-import 'package:product_manager/app/repositories/users_repository.dart';
 import 'package:product_manager/app/screens/favorites_screen.dart';
 
 import '../../helpers/helpers.dart';
-
-class MockUserRepository extends Mock implements UsersRepository {}
-
-class MockProductsRepository extends Mock implements ProductsRepository {}
 
 void main() {
   group('favorites screen ...', () {
