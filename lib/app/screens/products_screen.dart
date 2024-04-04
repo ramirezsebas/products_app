@@ -9,37 +9,79 @@ class ProductsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final products = ref.watch(fetchProductsProvider);
+    final user = ref.watch(fetchRandomUserProvider);
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Products'),
-      ),
-      body: products.when(
-        data: (data) {
-          return ListView.builder(
-            itemCount: data.length,
-            itemBuilder: (context, index) {
-              final product = data[index];
-              return ListTile(
-                title: Text(product.title),
-                subtitle: Text(product.description),
-                trailing: Text(product.price.toString()),
-                onTap: () {
-                  ref
-                      .read(selectProductProvider.notifier)
-                      .selectProduct(product);
+    return SafeArea(
+      top: false,
+      child: Scaffold(
+        body: CustomScrollView(
+          slivers: [
+            user.when(
+              data: (data) {
+                return SliverAppBar(
+                  leading: CircleAvatar(
+                    backgroundImage: NetworkImage(data.avatarUrl),
+                  ),
+                  title: Text('Welcome, ${data.name}'),
+                  floating: true,
+                  snap: true,
+                );
+              },
+              loading: () => const SliverFillRemaining(
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              ),
+              error: (error, stackTrace) => SliverFillRemaining(
+                child: Center(
+                  child: Text('Error: $error'),
+                ),
+              ),
+            ),
+            const SliverToBoxAdapter(
+              child: Divider(),
+            ),
+            products.when(
+              data: (data) {
+                return SliverList.separated(
+                  separatorBuilder: (context, index) => const Divider(),
+                  itemBuilder: (context, index) {
+                    final product = data[index];
 
-                  GoRouter.of(context).push(
-                    '/products/${product.id}',
-                    extra: product,
-                  );
-                },
-              );
-            },
-          );
-        },
-        loading: () => const CircularProgressIndicator(),
-        error: (error, stackTrace) => Text('Error: $error'),
+                    return ListTile(
+                      leading: CircleAvatar(
+                        backgroundImage: NetworkImage(product.thumbnail),
+                      ),
+                      title: Text(product.title),
+                      subtitle: Text(product.description),
+                      trailing: Text(product.price.toString()),
+                      onTap: () {
+                        ref
+                            .read(selectProductProvider.notifier)
+                            .selectProduct(product);
+
+                        GoRouter.of(context).push(
+                          '/products/${product.id}',
+                          extra: product,
+                        );
+                      },
+                    );
+                  },
+                );
+              },
+              loading: () => const SliverFillRemaining(
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              ),
+              error: (error, stackTrace) => SliverFillRemaining(
+                child: Center(
+                  child: Text('Error: $error'),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
