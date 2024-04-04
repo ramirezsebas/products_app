@@ -19,6 +19,10 @@ class FullImageScreen extends StatelessWidget {
         height: size.height,
         width: size.width,
         child: InteractiveViewer(
+          minScale: 0.1,
+          maxScale: 8,
+          clipBehavior: Clip.none,
+          boundaryMargin: const EdgeInsets.all(double.infinity),
           child: Hero(
             tag: image,
             child: CachedNetworkImage(
