@@ -15,9 +15,9 @@ void main() {
     usersRepository = UsersRepository(client: dio);
   });
 
-  group('products repository ...', () {
+  group('users repository ...', () {
     test(
-      'getProducts should return a UserModel',
+      'getRandomUser should return a UserModel',
       () async {
         // Arrange
 
@@ -101,6 +101,40 @@ void main() {
 
         // Assert
         expect(result, tUser);
+
+        verify(() => dio.get<dynamic>(any())).called(1);
+      },
+    );
+
+    test(
+      'getRandomUser should throw an exception when an error occurs',
+      () async {
+        // Arrange
+        when(
+          () => dio.get<dynamic>(any()),
+        ).thenThrow(
+          DioException(
+            requestOptions: RequestOptions(
+              method: 'GET',
+              path: '/users',
+            ),
+            response: Response(
+              requestOptions: RequestOptions(
+                method: 'GET',
+                path: '/users',
+              ),
+            ),
+          ),
+        );
+
+        // Act
+        final call = usersRepository.getRandomUser('1');
+
+        // Assert
+        expect(
+          call,
+          throwsA(isA<Exception>()),
+        );
 
         verify(() => dio.get<dynamic>(any())).called(1);
       },

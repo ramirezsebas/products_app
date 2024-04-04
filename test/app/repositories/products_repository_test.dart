@@ -104,5 +104,103 @@ void main() {
         verify(() => dio.get<dynamic>(any())).called(1);
       },
     );
+
+    test(
+      'getProducts should throw an exception when no products are found',
+      () async {
+        // Arrange
+        when(
+          () => dio.get<dynamic>(any()),
+        ).thenAnswer(
+          (_) async => Response(
+            data: {
+              'products': null,
+            },
+            statusCode: 404,
+            requestOptions: RequestOptions(
+              method: 'GET',
+              path: '/products',
+            ),
+          ),
+        );
+
+        // Act
+        final call = productsRepository.getProducts;
+
+        // Assert
+        expect(
+          call,
+          throwsA(isA<Exception>()),
+        );
+
+        verify(() => dio.get<dynamic>(any())).called(1);
+      },
+    );
+
+    test(
+      'getProducts should throw an exception when server fails',
+      () async {
+        // Arrange
+        when(
+          () => dio.get<dynamic>(any()),
+        ).thenAnswer(
+          (_) async => Response(
+            data: {
+              'products': null,
+            },
+            statusCode: 500,
+            requestOptions: RequestOptions(
+              method: 'GET',
+              path: '/products',
+            ),
+          ),
+        );
+
+        // Act
+        final call = productsRepository.getProducts;
+
+        // Assert
+        expect(
+          call,
+          throwsA(isA<Exception>()),
+        );
+
+        verify(() => dio.get<dynamic>(any())).called(1);
+      },
+    );
+
+    test(
+      'getProducts should throw an exception when an error occurs',
+      () async {
+        // Arrange
+        when(
+          () => dio.get<dynamic>(any()),
+        ).thenThrow(
+          DioError(
+            requestOptions: RequestOptions(
+              method: 'GET',
+              path: '/products',
+            ),
+            response: Response(
+              requestOptions: RequestOptions(
+                method: 'GET',
+                path: '/products',
+              ),
+            ),
+          ),
+        );
+
+        // Act
+        final call = productsRepository.getProducts;
+
+        // Assert
+        expect(
+          call,
+          throwsA(isA<Exception>()),
+        );
+
+        verify(() => dio.get<dynamic>(any())).called(1);
+      },
+    );
   });
 }

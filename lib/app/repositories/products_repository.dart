@@ -27,6 +27,8 @@ class ProductsRepository {
           .toList();
 
       return products;
+    } on DioException catch (e) {
+      throw Exception(e.message);
     } catch (e) {
       rethrow;
     }

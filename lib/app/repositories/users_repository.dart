@@ -15,6 +15,8 @@ class UsersRepository {
       final user = UserModel.fromJson(responseData);
 
       return user;
+    } on DioException catch (e) {
+      throw Exception(e.message);
     } catch (e) {
       rethrow;
     }
