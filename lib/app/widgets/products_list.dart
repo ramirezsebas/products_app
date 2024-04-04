@@ -2,13 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:go_router/go_router.dart';
+import 'package:product_manager/app/models/product_model.dart';
 import 'package:product_manager/app/providers/providers.dart';
 import 'package:shimmer/shimmer.dart';
 
 class ProductsList extends ConsumerWidget {
   const ProductsList({
+    required this.checkIsFavorite,
+    required this.addToFavorites,
     super.key,
   });
+
+  final bool Function(ProductModel) checkIsFavorite;
+  final void Function(ProductModel) addToFavorites;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -41,17 +47,11 @@ class ProductsList extends ConsumerWidget {
                   children: [
                     SlidableAction(
                       onPressed: (context) {
-                        ref
-                            .read(setFavoriteProductsProvider.notifier)
-                            .addToFavorites(product);
+                        addToFavorites(product);
                       },
                       backgroundColor: const Color(0xFF21B7CA),
                       foregroundColor: Colors.white,
-                      icon: !ref
-                              .watch(
-                                setFavoriteProductsProvider.notifier,
-                              )
-                              .isFavorite(product)
+                      icon: !checkIsFavorite(product)
                           ? Icons.favorite_border_rounded
                           : Icons.favorite_rounded,
                       label: !ref

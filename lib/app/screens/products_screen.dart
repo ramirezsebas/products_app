@@ -49,7 +49,15 @@ class ProductsScreen extends ConsumerWidget {
             ),
           ],
         ),
-        body: const ProductsList(),
+        body: ProductsList(
+          addToFavorites:
+              ref.read(setFavoriteProductsProvider.notifier).addToFavorites,
+          checkIsFavorite: ref
+              .watch(
+                setFavoriteProductsProvider.notifier,
+              )
+              .isFavorite,
+        ),
       ),
     );
   }
