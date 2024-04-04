@@ -22,7 +22,7 @@ final clientRepositoryProvider = AutoDisposeProvider<Dio>.internal(
 
 typedef ClientRepositoryRef = AutoDisposeProviderRef<Dio>;
 String _$productsRepositoryHash() =>
-    r'86f2d182730191fe5c3c09aa9587cd0729fffb37';
+    r'b72cdf77ea528b195bbe23cb3a24635fc2f8d9d7';
 
 /// See also [productsRepository].
 @ProviderFor(productsRepository)
@@ -38,6 +38,21 @@ final productsRepositoryProvider =
 );
 
 typedef ProductsRepositoryRef = AutoDisposeProviderRef<ProductsRepository>;
+String _$usersRepositoryHash() => r'437d4c5507aed217460292b94650a86e2eed71ee';
+
+/// See also [usersRepository].
+@ProviderFor(usersRepository)
+final usersRepositoryProvider = AutoDisposeProvider<UsersRepository>.internal(
+  usersRepository,
+  name: r'usersRepositoryProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$usersRepositoryHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef UsersRepositoryRef = AutoDisposeProviderRef<UsersRepository>;
 String _$fetchProductsHash() => r'a7288da45e9de72a197c27186893a7d7bb739966';
 
 /// See also [fetchProducts].
@@ -54,7 +69,22 @@ final fetchProductsProvider =
 );
 
 typedef FetchProductsRef = AutoDisposeFutureProviderRef<List<ProductModel>>;
-String _$selectProductHash() => r'8b1da11d0b67ad9d8a67c5237ee75146fae8265d';
+String _$fetchRandomUserHash() => r'941a78fe871bb34dbb543c66395df86653bb333b';
+
+/// See also [fetchRandomUser].
+@ProviderFor(fetchRandomUser)
+final fetchRandomUserProvider = AutoDisposeFutureProvider<UserModel>.internal(
+  fetchRandomUser,
+  name: r'fetchRandomUserProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$fetchRandomUserHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef FetchRandomUserRef = AutoDisposeFutureProviderRef<UserModel>;
+String _$selectProductHash() => r'c55d0c307340fded6e4578ffacb3722aa769594e';
 
 /// See also [SelectProduct].
 @ProviderFor(SelectProduct)
