@@ -176,7 +176,7 @@ void main() {
         when(
           () => dio.get<dynamic>(any()),
         ).thenThrow(
-          DioError(
+          DioException(
             requestOptions: RequestOptions(
               method: 'GET',
               path: '/products',
