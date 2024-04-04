@@ -39,7 +39,7 @@ class FavoritesScreen extends ConsumerWidget {
                           .read(selectProductProvider.notifier)
                           .selectProduct(product);
 
-                      GoRouter.of(context).push(
+                      GoRouter.of(context).go(
                         '/products/${product.id}',
                         extra: product,
                       );
