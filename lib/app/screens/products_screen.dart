@@ -24,10 +24,16 @@ class ProductsScreen extends ConsumerWidget {
                 title: Text(product.title),
                 subtitle: Text(product.description),
                 trailing: Text(product.price.toString()),
-                onTap: () => GoRouter.of(context).push(
-                  '/products/${product.id}',
-                  extra: product,
-                ),
+                onTap: () {
+                  ref
+                      .read(selectProductProvider.notifier)
+                      .selectProduct(product);
+
+                  GoRouter.of(context).push(
+                    '/products/${product.id}',
+                    extra: product,
+                  );
+                },
               );
             },
           );
