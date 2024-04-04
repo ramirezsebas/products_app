@@ -40,7 +40,7 @@ class ProductsScreen extends ConsumerWidget {
           actions: [
             FavoriteIconButton(
               onPressed: () {
-                GoRouter.of(context).go('/favorites');
+                GoRouter.of(context).push('/products/favorites');
               },
               numberOfFavorites: ref
                   .watch(
@@ -78,11 +78,27 @@ class ProductsScreen extends ConsumerWidget {
                       motion: const ScrollMotion(),
                       children: [
                         SlidableAction(
-                          onPressed: (context) {},
+                          onPressed: (context) {
+                            ref
+                                .read(setFavoriteProductsProvider.notifier)
+                                .addToFavorites(product);
+                          },
                           backgroundColor: const Color(0xFF21B7CA),
                           foregroundColor: Colors.white,
-                          icon: Icons.favorite_rounded,
-                          label: 'Add to Favorite',
+                          icon: !ref
+                                  .watch(
+                                    setFavoriteProductsProvider.notifier,
+                                  )
+                                  .isFavorite(product)
+                              ? Icons.favorite_border_rounded
+                              : Icons.favorite_rounded,
+                          label: !ref
+                                  .watch(
+                                    setFavoriteProductsProvider.notifier,
+                                  )
+                                  .isFavorite(product)
+                              ? 'Add to favorites'
+                              : 'Remove from favorites',
                         ),
                       ],
                     ),
