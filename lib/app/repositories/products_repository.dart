@@ -11,13 +11,15 @@ class ProductsRepository {
 
     final responseDate = response.data as Map<String, dynamic>;
 
-    final productsMap = responseDate['products'] as List<Map<String, dynamic>>?;
+    final productsMap = responseDate['products'] as List<dynamic>?;
 
     if (productsMap == null) {
       throw Exception('No products found');
     }
 
-    final products = productsMap.map(ProductModel.fromJson).toList();
+    final products = productsMap
+        .map((e) => ProductModel.fromJson(e as Map<String, dynamic>))
+        .toList();
 
     return products;
   }
