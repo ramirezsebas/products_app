@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 
 class FullImageScreen extends StatelessWidget {
   const FullImageScreen({
@@ -23,7 +24,15 @@ class FullImageScreen extends StatelessWidget {
             child: CachedNetworkImage(
               imageUrl: image,
               progressIndicatorBuilder: (context, url, downloadProgress) =>
-                  CircularProgressIndicator(value: downloadProgress.progress),
+                  Shimmer.fromColors(
+                baseColor: Colors.grey[300]!,
+                highlightColor: Colors.grey[100]!,
+                child: Container(
+                  width: 50,
+                  height: 50,
+                  color: Colors.white,
+                ),
+              ),
               errorWidget: (context, url, error) => const Icon(Icons.error),
             ),
           ),

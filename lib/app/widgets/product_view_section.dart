@@ -3,6 +3,7 @@ import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:product_manager/app/models/product_model.dart';
+import 'package:shimmer/shimmer.dart';
 
 class ProductViewSection extends StatelessWidget {
   const ProductViewSection({
@@ -41,8 +42,14 @@ class ProductViewSection extends StatelessWidget {
                           imageUrl: image,
                           progressIndicatorBuilder:
                               (context, url, downloadProgress) =>
-                                  CircularProgressIndicator(
-                            value: downloadProgress.progress,
+                                  Shimmer.fromColors(
+                            baseColor: Colors.grey[300]!,
+                            highlightColor: Colors.grey[100]!,
+                            child: Container(
+                              width: 50,
+                              height: 50,
+                              color: Colors.white,
+                            ),
                           ),
                           errorWidget: (context, url, error) =>
                               const Icon(Icons.error),

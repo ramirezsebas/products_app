@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -64,7 +65,13 @@ class ProductsList extends ConsumerWidget {
                 ),
                 child: ListTile(
                   leading: CircleAvatar(
-                    backgroundImage: NetworkImage(product.thumbnail),
+                    radius: 25,
+                    backgroundImage: CachedNetworkImageProvider(
+                      product.thumbnail,
+                      errorListener: (exception) {
+                        debugPrint('Error: $exception');
+                      },
+                    ),
                   ),
                   title: Text(product.title),
                   subtitle: Text(product.description),
