@@ -11,7 +11,8 @@ class UserModel extends Equatable {
 
     final lastName = json['lastName'] as String? ?? '';
 
-    final fullName = '$firstName $lastName';
+    final fullName =
+        firstName != '' && lastName != '' ? '$firstName $lastName' : '';
 
     return UserModel(
       name: fullName,
