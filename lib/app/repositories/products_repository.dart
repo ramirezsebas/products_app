@@ -6,9 +6,13 @@ class ProductsRepository {
 
   final Dio client;
 
-  Future<List<ProductModel>> getProducts() async {
+  Future<List<ProductModel>> getProducts({
+    required num limit,
+    required num skip,
+  }) async {
     try {
-      final response = await client.get<dynamic>('/products');
+      final response =
+          await client.get<dynamic>('/products?limit=$limit&skip=$skip');
 
       final responseDate = response.data as Map<String, dynamic>;
 
