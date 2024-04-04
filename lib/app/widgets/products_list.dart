@@ -21,14 +21,12 @@ class ProductsList extends ConsumerWidget {
     return ListView.custom(
       childrenDelegate: SliverChildBuilderDelegate(
         (context, index) {
-          const limit = 10;
-          final skip = index ~/ limit;
-
+          const limit = 30;
+          final skip = (index ~/ limit) * limit;
           final itemIndexInProducts = index % limit;
 
           final products = ref.watch(
             fetchProductsProvider(
-              limit: limit,
               skip: skip,
             ),
           );
