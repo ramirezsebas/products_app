@@ -25,6 +25,32 @@ class ProductsScreen extends ConsumerWidget {
                   title: Text('Welcome, ${data.name}'),
                   floating: true,
                   snap: true,
+                  actions: [
+                    Stack(
+                      children: [
+                        IconButton(
+                          icon: const Icon(Icons.favorite_border_rounded),
+                          onPressed: () {},
+                        ),
+                        Align(
+                          alignment: Alignment.topRight,
+                          child: CircleAvatar(
+                            backgroundColor: Colors.red,
+                            radius: 10,
+                            child: Text(
+                              ref
+                                  .watch(setFavoriteProductsProvider)
+                                  .length
+                                  .toString(),
+                              style: const TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 );
               },
               loading: () => const SliverFillRemaining(
