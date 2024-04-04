@@ -71,7 +71,7 @@ void main() {
         expect(product.brand, '');
         expect(product.category, '');
         expect(product.thumbnail, '');
-        expect(product.images, []);
+        expect(product.images, List<String>.empty());
       },
     );
   });

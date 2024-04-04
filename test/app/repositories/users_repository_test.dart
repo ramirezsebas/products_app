@@ -88,7 +88,7 @@ void main() {
         const tUserId = '1';
 
         when(
-          () => dio.get(any()),
+          () => dio.get<dynamic>(any()),
         ).thenAnswer(
           (_) async => Response(
             data: tUserJson,
@@ -102,7 +102,7 @@ void main() {
         // Assert
         expect(result, tUser);
 
-        verify(() => dio.get(any())).called(1);
+        verify(() => dio.get<dynamic>(any())).called(1);
       },
     );
   });

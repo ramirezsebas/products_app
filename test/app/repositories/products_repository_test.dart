@@ -68,7 +68,7 @@ void main() {
         ];
 
         when(
-          () => dio.get(any()),
+          () => dio.get<dynamic>(any()),
         ).thenAnswer(
           (_) async => Response(
             data: {
@@ -101,7 +101,7 @@ void main() {
         expect(result.first.thumbnail, tProducts.first.thumbnail);
         expect(result.first.images, tProducts.first.images);
 
-        verify(() => dio.get(any())).called(1);
+        verify(() => dio.get<dynamic>(any())).called(1);
       },
     );
   });

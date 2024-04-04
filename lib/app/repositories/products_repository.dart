@@ -8,7 +8,7 @@ class ProductsRepository {
 
   Future<List<ProductModel>> getProducts() async {
     try {
-      final response = await client.get('/products');
+      final response = await client.get<dynamic>('/products');
 
       final responseDate = response.data as Map<String, dynamic>;
 

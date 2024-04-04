@@ -8,7 +8,7 @@ class UsersRepository {
 
   Future<UserModel> getRandomUser(String id) async {
     try {
-      final response = await client.get('/users/$id');
+      final response = await client.get<dynamic>('/users/$id');
 
       final responseData = response.data as Map<String, dynamic>;
 
