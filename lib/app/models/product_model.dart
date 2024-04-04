@@ -1,5 +1,7 @@
-class ProductModel {
-  ProductModel({
+import 'package:equatable/equatable.dart';
+
+class ProductModel extends Equatable {
+  const ProductModel({
     required this.id,
     required this.title,
     required this.description,
@@ -20,8 +22,8 @@ class ProductModel {
       description: json['description'] as String? ?? '',
       price: (json['price'] as num? ?? 0.0).toDouble(),
       discountPercentage: json['discountPercentage'] as double? ?? 0.0,
-      rating: json['rating'] as double? ?? 0.0,
-      stock: json['stock'] as int? ?? 0,
+      rating: json['rating'] as num? ?? 0.0,
+      stock: json['stock'] as num? ?? 0,
       brand: json['brand'] as String? ?? '',
       category: json['category'] as String? ?? '',
       thumbnail: json['thumbnail'] as String? ?? '',
@@ -30,15 +32,47 @@ class ProductModel {
           .toList(),
     );
   }
+
+  factory ProductModel.fromEmpty() {
+    return const ProductModel(
+      id: 0,
+      title: '',
+      description: '',
+      price: 0.0,
+      discountPercentage: 0.0,
+      rating: 0.0,
+      stock: 0,
+      brand: '',
+      category: '',
+      thumbnail: '',
+      images: [],
+    );
+  }
+
   final int id;
   final String title;
   final String description;
   final num price;
   final num discountPercentage;
   final num rating;
-  final int stock;
+  final num stock;
   final String brand;
   final String category;
   final String thumbnail;
   final List<String> images;
+
+  @override
+  List<Object?> get props => [
+        id,
+        title,
+        description,
+        price,
+        discountPercentage,
+        rating,
+        stock,
+        brand,
+        category,
+        thumbnail,
+        images,
+      ];
 }
