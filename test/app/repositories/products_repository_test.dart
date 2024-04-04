@@ -82,7 +82,8 @@ void main() {
         );
 
         // Act
-        final result = await productsRepository.getProducts();
+        final result =
+            await productsRepository.getProducts(limit: 100, skip: 0);
 
         // Assert
         expect(result.length, tProducts.length);

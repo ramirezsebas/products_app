@@ -40,7 +40,7 @@ Future<List<ProductModel>> fetchProducts(
 ) async {
   final repository = ref.watch(productsRepositoryProvider);
 
-  return repository.getProducts();
+  return repository.getProducts(limit: 100, skip: 0);
 }
 
 @riverpod
