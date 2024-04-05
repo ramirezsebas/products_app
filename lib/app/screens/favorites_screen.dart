@@ -30,19 +30,11 @@ class FavoritesScreen extends ConsumerWidget {
                   final product = products[index];
 
                   return ListTile(
-                    leading: CachedNetworkImage(
-                      imageUrl: product.thumbnail,
-                      placeholder: (context, url) => Shimmer.fromColors(
-                        baseColor: Colors.grey[300]!,
-                        highlightColor: Colors.grey[100]!,
-                        child: Container(
-                          width: 50,
-                          height: 50,
-                          color: Colors.white,
-                        ),
+                    leading: CircleAvatar(
+                      radius: 25,
+                      backgroundImage: CachedNetworkImageProvider(
+                        product.thumbnail,
                       ),
-                      errorWidget: (context, url, error) =>
-                          const Icon(Icons.error),
                     ),
                     title: Text(product.title),
                     subtitle: Text(product.description),
