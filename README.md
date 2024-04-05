@@ -30,6 +30,8 @@ This is a Flutter app that demonstrates the usage of Riverpod for state manageme
 3. Install dependencies:
 
    ```bash
+   <!-- In case you have fvm installed -->
+   fvm use
    flutter pub get
    ```
 
@@ -46,7 +48,7 @@ Obs:
   ```bash
   make gen
   ```
-  
+
 - The app uses the [User API](https://dummyjson.com/users/${id}) to fetch random user data.
 - The app uses the [Products API](https://dummyjson.com/products/) to fetch products data.
 
