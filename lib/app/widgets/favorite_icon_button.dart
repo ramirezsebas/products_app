@@ -15,6 +15,7 @@ class FavoriteIconButton extends StatelessWidget {
     return Stack(
       children: [
         IconButton(
+          key: const Key('iconButton'),
           icon: const Icon(Icons.favorite_border_rounded),
           onPressed: onPressed,
         ),
