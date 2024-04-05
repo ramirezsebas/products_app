@@ -5,7 +5,7 @@ import 'package:product_manager/app/widgets/favorite_icon_button.dart';
 import '../../helpers/helpers.dart';
 
 void main() {
-  testWidgets('favorite icon button ...', (tester) async {
+  testWidgets('favorite icon button', (tester) async {
     await tester.pumpApp(
       FavoriteIconButton(
         numberOfFavorites: 10,
@@ -19,7 +19,7 @@ void main() {
     );
   });
 
-  testWidgets('favorite icon button with 0 favorites ...', (tester) async {
+  testWidgets('favorite icon button with 0 favorites', (tester) async {
     await tester.pumpApp(
       FavoriteIconButton(
         numberOfFavorites: 0,
@@ -33,7 +33,7 @@ void main() {
     );
   });
 
-  testWidgets('favorite icon button onPressed ...', (tester) async {
+  testWidgets('favorite icon button onPressed', (tester) async {
     var pressed = false;
     await tester.pumpApp(
       FavoriteIconButton(
