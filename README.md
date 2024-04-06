@@ -38,7 +38,7 @@ This is a Flutter app that demonstrates the usage of Riverpod for state manageme
 4. Run the app on a connected device or emulator:
 
    ```bash
-   flutter run
+   flutter run --flavor development --target lib/main_development.dart
    ```
 
 Obs:
